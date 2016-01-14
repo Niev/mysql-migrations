@@ -35,7 +35,7 @@ if __name__ == "__main__":
         cnx = connector.connect(
             host="mysql",
             user=os.environ.get("MYSQL_USER", "root"),
-            port=os.environ.get("MYSQL_PORT", "3306"),
+            port="3306",
             password=os.environ.get("MYSQL_PASSWORD"),
             autocommit=True,
         )
@@ -61,8 +61,9 @@ if __name__ == "__main__":
                     migration=file
                 ))
 
-                with open(os.path.join(MIGRATIONS_PATH, file)) as migration:
-                    list(cursor.execute(migration.read(), multi=True))
+                with open(os.path.join(MIGRATIONS_PATH, file), "br") as migration:
+                    s = migration.read()
+                    list(cursor.execute(s, multi=True))
 
                 cursor.execute(insert_query, (file, datetime.now()))
         cursor.close()

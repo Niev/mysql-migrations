@@ -22,5 +22,6 @@ Environment
 ---
 * MYSQL_DATABASE (`mandatory`)
 * MYSQL_USER     (optional, default=root)
-* MYSQL_PORT     (optional, default=3306)
 * MYSQL_PASSWORD (optional, default=None)
+
+`P.S.:` *MYSQL_PORT with value tcp://<ip>:3306 is the Docker variable from linked MYSQL container. I can't use it for my purposes. Write me if you ever need custom PORT.*
