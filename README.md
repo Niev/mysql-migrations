@@ -2,7 +2,7 @@ This tool apply one by one changes from SQL files in `/migrations` to linked MyS
 It keeps history of already applied migrations directly in your database and uses `Migrations` table for this purpose.
 
 
-What it do?
+What it does?
 ---
 1. Creates database `MYSQL_DATABASE` if not exists
 2. Creates table `Migrations` if not exists to keep migrations history
