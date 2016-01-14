@@ -1,21 +1,26 @@
-What is it?
----
-mysql-migrations is a tool to one by one execution of migrations into your database.
+This tool apply one by one changes from SQL files in `/migrations` to linked MySQL container.
 It keeps history of already applied migrations directly in your database and uses `Migrations` table for this purpose.
 
-What is a migration?
----
-Migration is a SQL file with one or more MySQL statements. Statements separated with comma ";".
 
-Philosophy of mysql-migrations
+What it do?
 ---
-One folder for database migrations
-One migration file for change
-No structure rollbacks (they insecure in most cases)
-All migrations under CSV with project
+1. Creates database `MYSQL_DATABASE` if not exists
+2. Creates table `Migrations` if not exists to keep migrations history
+3. Run migrations one by one
+
 
 Usage
 ---
-It search migrations in `/migrations` folder and do nothing if it is empy.
+    docker run -v path-to-your-migrations:/migrations --link your-mysql-database-container:mysql -e MYSQL_DATABASE=you-mysql-database-name niev/mysql-migrations
 
-    docker run -v migrations:/migrations -e MYSQL_ROOT_PASSWORD=<..> -e MYSQL_DATABASE=<..> niev/mysql-migrations
+`or`
+
+    docker run --volumes-from=container-with-migrations --link your-mysql-database-container:mysql -e MYSQL_DATABASE=you-mysql-database-name niev/mysql-migrations
+
+
+Environment
+---
+* MYSQL_DATABASE (`mandatory`)
+* MYSQL_USER     (optional, default=root)
+* MYSQL_PORT     (optional, default=3306)
+* MYSQL_PASSWORD (optional, default=None)
