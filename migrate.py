@@ -28,13 +28,15 @@ insert_query = "INSERT INTO Migrations(Name, Created) VALUES (%s, %s)"
 
 
 if __name__ == "__main__":
+    assert os.environ.get("MYSQL_DATABASE")
+
     migrations = sorted(os.listdir(MIGRATIONS_PATH))
     if len(migrations):
         cnx = connector.connect(
             host="mysql",
-            user="root",
-            port="3306",
-            password=os.environ.get("MYSQL_ROOT_PASSWORD"),
+            user=os.environ.get("MYSQL_USER", "root"),
+            port=os.environ.get("MYSQL_PORT", "3306"),
+            password=os.environ.get("MYSQL_PASSWORD"),
             autocommit=True,
         )
         cursor = cnx.cursor()
