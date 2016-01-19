@@ -69,7 +69,7 @@ if __name__ == "__main__":
         cursor.close()
         cnx.close()
     else:
-        print("{color1}There are no migrations".format(
+        print("{color1}There are no migrations{end}".format(
             color1=bcolors.WARNING,
             end=bcolors.ENDC,
             path=MIGRATIONS_PATH
